@@ -35,7 +35,7 @@ const SearchPage = async ({
         ...searchParams,
     });
 
-    console.log(courses);
+    // console.log(courses);
     
 
     return ( 

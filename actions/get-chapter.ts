@@ -26,7 +26,12 @@ export const getChapter = async ({
                 isPublished: true
             },
             select: {
-                price: true
+                price: true,
+                chapters: {
+                    include: {
+                        userProgress: true
+                    }
+                }
             }
         });
 
@@ -54,7 +59,7 @@ export const getChapter = async ({
             });
         }
 
-        if(chapter.isFree || purchase) {
+        if (chapter.isFree || purchase) {
             muxData = await db.muxData.findUnique({
                 where: {
                     chapterId: chapterId,
@@ -87,7 +92,6 @@ export const getChapter = async ({
                 }
             });
         }
-
 
         const userProgress = await db.userProgress.findUnique({
             where: {

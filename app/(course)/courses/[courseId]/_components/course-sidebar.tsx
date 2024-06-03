@@ -32,10 +32,7 @@ export const CourseSidebar = async({
             courseId: course.id
         }
     });
--
-    console.log(await progressCount);
     
-
 
     return (
         <div className="h-full md:border-r flex flex-col overflow-y-auto shadow-sm">

@@ -14,6 +14,9 @@ interface CoursesListProps {
 export const CoursesList = ({
     items
 }: CoursesListProps) => {
+
+    // console.log("Items in CoursesList:", items);
+    
     return (
         <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:gridcols-4 2xl:grid-cols-4 gap-4">

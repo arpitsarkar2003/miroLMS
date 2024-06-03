@@ -20,8 +20,10 @@ export const getCourses = async ({ userId, title, categoryId }: GetCourses): Pro
             where: {
                 userId,
                 isPublished: true,
-                ...(title && { title: { contains: title } }),
-                ...(categoryId && { category: { id: categoryId } }),
+                title: {
+                    contains: title,
+                },
+                categoryId,
             },
             include: { 
                 category: true,

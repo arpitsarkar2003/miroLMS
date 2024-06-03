@@ -15,16 +15,12 @@ export const getProgress = async (
                 id: true
             }
         });
-
-        if (publishedChapters.length === 0) {
-            return 0;
-        }
     
         const publishedChaptersId = publishedChapters.map((chapter) => chapter.id);
 
         const validCompletedChapters = await db.userProgress.findMany({
             where: {
-                userId,
+                userId: userId,
                 chapterId: {
                     in: publishedChaptersId
                 }

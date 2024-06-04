@@ -1,45 +1,54 @@
 import { db } from "@/lib/db";
 
 export const getProgress = async (
-    courseId: string,
-    userId: string
+    courseID: string,
+    userID: string
 ): Promise<number> => {
     try {
-
         const publishedChapters = await db.chapter.findMany({
+            // where: {
+            //     courseId,
+            //     isPublished: true
+            // },
+            // select: {
+            //     id: true
+            // }
             where: {
-                courseId,
-                isPublished: true
-            },
-            select: {
-                id: true
+                courseId: courseID,
+                isPublished: true,
             }
         });
 
-        if (publishedChapters.length === 0) {
-            return 0;
-        }
+        // console.log("publishedChapters", publishedChapters);
     
         const publishedChaptersId = publishedChapters.map((chapter) => chapter.id);
 
+        // console.log("publishedChaptersId", publishedChaptersId);
+
         const validCompletedChapters = await db.userProgress.findMany({
             where: {
-                userId,
+                userId: userID,
                 chapterId: {
                     in: publishedChaptersId
-                }
-            },
-            select: {
-                chapterId: true
+                },
+                isCompleted: true
             }
+            // select: {
+            //     chapterId: true
+            // }
         });
 
-        const progressPercentage = (validCompletedChapters.length / publishedChapters.length) * 100;
-    
-        return progressPercentage;
+        // console.log("validCompletedChapters", validCompletedChapters);
+        
+
+        if (publishedChapters.length > 0) {
+            return (validCompletedChapters.length / publishedChapters.length) * 100;
+        }
+
+        return 0;
 
     } catch (error) {
-        console.error("[GET_PROGRESS] Error fetching progress for course:", courseId, "and user:", userId, error);
+        console.error("[GET_PROGRESS] Error fetching progress for course:", courseID, "and user:", userID, error);
         return 0;
     }
 }

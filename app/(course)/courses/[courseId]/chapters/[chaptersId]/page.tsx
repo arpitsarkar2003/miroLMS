@@ -6,7 +6,7 @@ import { VideoPlayer } from "./_components/video-player";
 
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/preview";
-import { CourseEnrollButton } from "./_components/course-ernroll-button";
+import { CourseEnrollWrapper } from "./_components/CourseEnrollWrapper";
 
 interface ChapterIdPageProps {
     params: { courseId: string; chaptersId: string };
@@ -71,14 +71,15 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
                 <div>
                     <div className="p-4 flex flex-col md:flex-row items-center justify-between">
                         <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
-                        {purchase ? (
-                            <div> {/* TODO: add CourseProgress button */}</div>
-                        ) : (
-                            <CourseEnrollButton
-                                courseId={params.courseId}
-                                price={course.price ?? 0}
-                            />
-                        )}
+                        <CourseEnrollWrapper
+                            courseId={params.courseId}
+                            price={course.price ?? 0}
+                            isPurchased={!!purchase}
+                            chapterId={params.chaptersId}
+                            nextChapterId={nextChapter?.id ?? ""}
+                            prevChapterId={prevChapter?.id ?? ""}
+                            userProgress={userProgress!}
+                        />
                     </div>
                     <Separator />
                     <div>
@@ -95,7 +96,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
                                         href={attachment.url ?? undefined}
                                         target="_blank"
                                         key={attachment.id}
-                                        className="flex items-center p-3 w-full bg-sky-200 text-orange-700 rounded-md hover:underline"
+                                        className="flex items-center p-3 w-full bg-sky-200 text-sky-700 rounded-md hover:underline"
                                     >
                                         {attachment.name}
                                     </a>

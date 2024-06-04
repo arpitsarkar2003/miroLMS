@@ -48,7 +48,8 @@ const CourseLayout = async ({
         return redirect("/");
     }
 
-    const progressCount = await getProgress(userId, course.id);
+    // console.log("course", course.id, "userId", userId);
+    const progressCount = await getProgress(course.id, userId);
 
 
 

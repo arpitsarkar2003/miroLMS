@@ -16,12 +16,16 @@ type GetCourses = {
 
 export const getCourses = async ({ userId, title, categoryId }: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
     try {
+        
+        
         const courses = await db.course.findMany({
             where: {
-                userId,
+                // userId,
                 isPublished: true,
-                ...(title && { title: { contains: title } }),
-                ...(categoryId && { category: { id: categoryId } }),
+                title: {
+                    contains: title,
+                },
+                categoryId,
             },
             include: { 
                 category: true,
@@ -51,6 +55,7 @@ export const getCourses = async ({ userId, title, categoryId }: GetCourses): Pro
                     progress: null,
                 };
             }
+            // console.log("course", course.id, "userId", userId);
             const progressPercentage = await getProgress(course.id, userId);
 
             return {

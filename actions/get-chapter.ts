@@ -26,7 +26,12 @@ export const getChapter = async ({
                 isPublished: true
             },
             select: {
-                price: true
+                price: true,
+                chapters: {
+                    include: {
+                        userProgress: true
+                    }
+                }
             }
         });
 
@@ -54,7 +59,7 @@ export const getChapter = async ({
             });
         }
 
-        if(chapter.isFree || purchase) {
+        if (chapter.isFree || purchase) {
             muxData = await db.muxData.findUnique({
                 where: {
                     chapterId: chapterId,
@@ -88,7 +93,6 @@ export const getChapter = async ({
             });
         }
 
-
         const userProgress = await db.userProgress.findUnique({
             where: {
                 userId_chapterId: {
@@ -97,6 +101,13 @@ export const getChapter = async ({
                 }
             }
         });
+
+        // Using raw mongo queries here.
+        // Get the overallUserProgress
+
+        const overallUserProgress = await db.userProgress.findMany({});
+
+        // console.log("Overall User progress:", overallUserProgress);
 
         return {
             chapter,

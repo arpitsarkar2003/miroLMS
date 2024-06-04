@@ -41,7 +41,7 @@ export async function POST(req: Request, { params }: { params: { courseId: strin
             {
                 quantity: 1,
                 price_data: {
-                    currency: "inr",
+                    currency: "USD",
                     product_data: {
                         name: course.title!,
                         description: course.description!,

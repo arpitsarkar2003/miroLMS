@@ -24,28 +24,29 @@ export const CourseProgressButton = ({ chapterId, courseId, nextChapterId, prevC
 
 
     const onClick = async () => {
-
-        
         try {
             setIsLoading(true);
-
+    
             await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
                 isCompleted: !isCompleted,
             });
-
-            if (!isCompleted && !nextChapterId) {
-                confetti.onOpen();
+    
+            setIsLoading(false);
+    
+            if (!isCompleted) {
+                if (!nextChapterId) {
+                    confetti.onOpen();
+                }
+    
+                if (nextChapterId) {
+                    router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+                }
+    
+                toast.success("Progress updated successfully");
+                router.refresh();
             }
-
-            if (!isCompleted && nextChapterId) {
-                router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
-            }
-
-            toast.success("Progress updated successfully");
-            router.refresh();
         } catch {
             toast.error("Something went wrong. Please try again.");
-        } finally {
             setIsLoading(false);
         }
     };

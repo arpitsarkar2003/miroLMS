@@ -11,6 +11,9 @@ export async function PUT(req: Request, { params }: { params: { courseId: string
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
+        //! data not coming here. isCompleted
+        // console.log("chapterID", params.chapterId, "userId", userId, "isCompleted", isCompleted);
+
         const userProgress = await db.userProgress.upsert({
             where: {
                 userId_chapterId: {
@@ -27,6 +30,7 @@ export async function PUT(req: Request, { params }: { params: { courseId: string
                 isCompleted,
             },
         });
+
 
         return NextResponse.json(userProgress);
     } catch (error) {

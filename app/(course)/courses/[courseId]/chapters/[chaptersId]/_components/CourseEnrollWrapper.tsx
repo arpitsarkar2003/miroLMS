@@ -23,6 +23,9 @@ export const CourseEnrollWrapper = ({
     prevChapterId,
     userProgress,
 }: CourseEnrollWrapperProps) => {
+
+    // console.log(userProgress);
+    
     return (
         <>
             {isPurchased ? (
@@ -31,7 +34,7 @@ export const CourseEnrollWrapper = ({
                     courseId={courseId}
                     nextChapterId={nextChapterId ?? ""}
                     prevChapterId={prevChapterId ?? ""}
-                    iscompleted={userProgress?.isCompleted!}
+                    isCompleted={!!userProgress?.isCompleted}
                 />
             ) : (
                 <CourseEnrollButton courseId={courseId} price={price} />

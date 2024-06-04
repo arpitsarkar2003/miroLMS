@@ -42,7 +42,7 @@ export const CategoryIcon = ({
     return (
         <button
         onClick={onclick}
-        className={cn("py-2 px-3 text-sm border border-slate-200 rounded-full flex items-center gap-x-1 hover:border-orange-700 transition", 
+        className={cn("py-2 px-3 text-sm border cursor-default border-slate-200 rounded-full flex items-center gap-x-1 hover:border-orange-700 transition", 
         isSelected && "border-orange-700 bg-orange-200/20 text-orange-800"
         )} type="button">
             {Icon && <Icon size={20} />}

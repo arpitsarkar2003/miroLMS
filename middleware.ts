@@ -14,4 +14,7 @@ export const config = {
     "/",
     "/(api|trpc)(.*)",
   ],
+  api: {
+    bodyParser: false,
+},
 };

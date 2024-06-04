@@ -102,6 +102,13 @@ export const getChapter = async ({
             }
         });
 
+        // Using raw mongo queries here.
+        // Get the overallUserProgress
+
+        const overallUserProgress = await db.userProgress.findMany({});
+
+        // console.log("Overall User progress:", overallUserProgress);
+
         return {
             chapter,
             course,

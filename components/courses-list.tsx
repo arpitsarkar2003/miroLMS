@@ -14,8 +14,6 @@ interface CoursesListProps {
 export const CoursesList = ({
     items
 }: CoursesListProps) => {
-
-    // console.log("Items in CoursesList:", items);
     
     return (
         <div>
@@ -32,9 +30,7 @@ export const CoursesList = ({
                         chaptersLength={course.chapters.length}
 
                     />
-                    // <div key={course.id}>
-                    //     {course.title}
-                    // </div>
+                   
                 ))}
                 <div>
                     {items.length === 0 && (

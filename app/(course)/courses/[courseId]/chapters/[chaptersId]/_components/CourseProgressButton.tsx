@@ -11,30 +11,33 @@ import toast from "react-hot-toast";
 interface CourseProgressButtonProps {
     chapterId: string;
     courseId: string;
-    nextChapterId: string;
+    nextChapterId?: string;
     prevChapterId: string;
-    iscompleted: boolean;
+    isCompleted?: boolean;
 }
 
-export const CourseProgressButton = ({ chapterId, courseId, nextChapterId, prevChapterId, iscompleted}: CourseProgressButtonProps) => {
+export const CourseProgressButton = ({ chapterId, courseId, nextChapterId, prevChapterId, isCompleted}: CourseProgressButtonProps) => {
 
     const router = useRouter();
     const confetti = useConfettiStore();
     const [isLoading, setIsLoading] = useState(false);
 
+
     const onClick = async () => {
+
+        
         try {
             setIsLoading(true);
 
             await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
-                iscompleted: !iscompleted,
+                isCompleted: !isCompleted,
             });
 
-            if (!iscompleted && !nextChapterId) {
+            if (!isCompleted && !nextChapterId) {
                 confetti.onOpen();
             }
 
-            if (!iscompleted && nextChapterId) {
+            if (!isCompleted && nextChapterId) {
                 router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
             }
 
@@ -47,18 +50,20 @@ export const CourseProgressButton = ({ chapterId, courseId, nextChapterId, prevC
         }
     };
 
+    
+    
 
-    const Icon = iscompleted ? XCircle : CheckCircle;
+    const Icon = isCompleted ? XCircle : CheckCircle;
 
     return (
        <Button 
         type="button"
-        variant={iscompleted ? "outline" : "sucesss"}
+        variant={isCompleted ? "outline" : "sucesss"}
         className="w-full md:w-auto"
         onClick={onClick}
         disabled={isLoading}
        >
-            {iscompleted ? "Not Completed" : "Mark as Completed"}
+            {isCompleted ? `Not Completed` : `Mark as Completed`}
             <Icon className="w-4 h-4 ml-2"/>
        </Button>
     );

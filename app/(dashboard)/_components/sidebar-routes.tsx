@@ -7,14 +7,14 @@ import { usePathname } from "next/navigation";
 
 const guestRoutes = [
     {
-      icon: Layout,
-      label: "Dashboard",
-      href: "/",
-    },
-    {
       icon: Compass,
       label: "Browse",
       href: "/search",
+    },
+    {
+      icon: Layout,
+      label: "Dashboard",
+      href: "/",
     },
   ];
   
